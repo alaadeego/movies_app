@@ -8,9 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.moviesapp.R
+import com.example.moviesapp.utils.VerticalSpaceItemDecoration
 import com.example.moviesapp.utils.ViewModelFactory
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.fragment_movies.*
 import javax.inject.Inject
 
 class MoviesFragment : Fragment() {
@@ -18,6 +22,8 @@ class MoviesFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<MoviesFragmentViewModel>
+
+    private val moviesAdapter = MoviesAdapter()
 
     private val viewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(MoviesFragmentViewModel::class.java)
@@ -38,13 +44,24 @@ class MoviesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        initMoviesRecyclerView()
         observeNowPlayingMovies()
+    }
+
+    private fun initMoviesRecyclerView() {
+        rclMovies.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        rclMovies.adapter = moviesAdapter
+        rclMovies.addItemDecoration(VerticalSpaceItemDecoration(16))
+        rclMovies.setHasFixedSize(true)
+
     }
 
     private fun observeNowPlayingMovies() {
         viewModel.getMovieLiveData().observe(requireActivity(), Observer {
             if (it.isNotEmpty()) {
-
+                moviesAdapter.update(it)
+                moviesAdapter.notifyDataSetChanged()
             }
         })
     }

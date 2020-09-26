@@ -12,7 +12,7 @@
         android:background="#E4000000">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imgMoviePoster"
             android:layout_width="@dimen/dimen_movie_card_image_width"
             android:layout_height="@dimen/dimen_movie_card_image_height"
             android:layout_marginStart="8dp"
@@ -36,8 +36,8 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+            app:layout_constraintStart_toEndOf="@+id/imgMoviePoster"
+            app:layout_constraintTop_toTopOf="@+id/imgMoviePoster" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -66,9 +66,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="#CD392F"
+            android:background="@drawable/bg_voting_count"
             android:gravity="center"
-            android:padding="8dp"
+            android:padding="4dp"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toStartOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/imageView2"

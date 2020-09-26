@@ -13,6 +13,7 @@ import javax.inject.Singleton
 
 const val API_KEY = "6fe2092090c2ca190cd7f79368bba13a"
 private const val BASE_URL = "https://api.themoviedb.org/"
+const val MOVIE_IMAGE_BASE_PATH = "https://image.tmdb.org/t/p/w500"
 
 @Module
 class NetworkModule {
