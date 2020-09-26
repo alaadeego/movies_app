@@ -7,6 +7,7 @@ buildscript {
     ext.nav_version = "2.3.0"
     ext.daggerVersion = '2.26'
     ext.retrofit_version = '2.9.0'
+    ext.okhttp_version = '3.10.0'
     repositories {
         google()
         jcenter()

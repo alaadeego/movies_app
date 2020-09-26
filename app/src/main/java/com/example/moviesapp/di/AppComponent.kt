@@ -4,23 +4,24 @@ import android.app.Application
 import com.example.moviesapp.MoviesApplication
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.support.AndroidSupportInjectionModule
+import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
 @Singleton
 @Component(
-    modules = [AndroidSupportInjectionModule::class,
+    modules = [AndroidInjectionModule::class,
         AppModule::class,
-        NetworkModule::class]
+        NetworkModule::class,
+        ActivityBuilder::class]
 )
 interface AppComponent {
 
-    fun inject(app:MoviesApplication)
+    fun inject(app: MoviesApplication)
 
     @Component.Builder
-    interface Builder{
+    interface Builder {
         @BindsInstance
-        fun application(application: Application) :Builder
-        fun build() :AppComponent
+        fun application(application: Application): Builder
+        fun build(): AppComponent
     }
 }

@@ -5,6 +5,7 @@ import com.example.moviesapp.data.api.RetrofitClient
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -31,14 +32,20 @@ class NetworkModule {
 
     @Provides
     @Singleton
+    fun provideHttpLoggingInterceptor() = HttpLoggingInterceptor()
+
+    @Provides
+    @Singleton
     fun provideRetrofitClient(
         @Named("BASE_URL") baseURL: String,
         httpClientBuilder: OkHttpClient.Builder,
+        httpLoggingInterceptor: HttpLoggingInterceptor,
         retrofitBuilder: Retrofit.Builder
     ): Retrofit {
         return RetrofitClient(
             baseURL,
             httpClientBuilder,
+            httpLoggingInterceptor,
             retrofitBuilder
         ).getInstance()
     }
