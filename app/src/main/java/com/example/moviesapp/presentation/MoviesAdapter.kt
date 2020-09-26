@@ -22,7 +22,7 @@ class MoviesAdapter() :
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(movie: Movie) {
-            itemView.tvMovieTitle.text = movie.original_title
+            itemView.tvMovieTitle.text = movie.title
             itemView.tvVoteAverage.text = "${movie.vote_average}"
             itemView.tvVoteCounts.text = "${movie.vote_count}"
             Glide.with(itemView)
