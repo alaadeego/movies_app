@@ -23,7 +23,7 @@ class MoviesFragmentViewModel @Inject constructor(
         getNowPlayingMovies()
     }
 
-    private fun getNowPlayingMovies() {
+     fun getNowPlayingMovies() {
         viewModelScope.launch {
             val results = kotlin.runCatching {
                 nowPlayingMoviesUseCase.getMovies(page = 1)
@@ -39,17 +39,19 @@ class MoviesFragmentViewModel @Inject constructor(
 
 
     fun search(movieName: String) {
-        viewModelScope.launch {
-            val results = kotlin.runCatching {
-                searchMovieUseCase.search(page = 1,query = movieName)
-            }
-            results.onSuccess {
-                moviesLiveData.postValue(it)
-            }
-            results.onFailure {
+        if (movieName.isNotEmpty())
+            viewModelScope.launch {
+                val results = kotlin.runCatching {
+                    searchMovieUseCase.search(page = 1, query = movieName)
+                }
+                results.onSuccess {
+                    moviesLiveData.postValue(it)
+                }
+                results.onFailure {
 
+                }
             }
-        }
-
+        else
+            getNowPlayingMovies()
     }
 }

@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView.OnEditorActionListener
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviesapp.R
 import com.example.moviesapp.utils.VerticalSpaceItemDecoration
 import com.example.moviesapp.utils.ViewModelFactory
+import com.example.moviesapp.utils.afterTextChanged
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_movies.*
 import javax.inject.Inject
@@ -50,6 +49,11 @@ class MoviesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         initMoviesRecyclerView()
         observeNowPlayingMovies()
+        initSearchEditView()
+
+    }
+
+    private fun initSearchEditView() {
         edtSearch.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 // Your piece of code on keyboard search click
@@ -57,6 +61,13 @@ class MoviesFragment : Fragment() {
                 true
             } else false
         }
+
+
+        edtSearch.afterTextChanged {
+            if (it.isEmpty())
+                viewModel.getNowPlayingMovies()
+        }
+
     }
 
     private fun initMoviesRecyclerView() {
