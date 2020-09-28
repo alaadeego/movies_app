@@ -19,6 +19,7 @@ interface MovieApiService {
     suspend fun searchMovies(
         @Query("api_key") apiKey: String,
         @Query("page") page: Int,
+        @Query("query") query: String,
         @Query("language") language: String = "en-US"
     ): MoviesResponse
 

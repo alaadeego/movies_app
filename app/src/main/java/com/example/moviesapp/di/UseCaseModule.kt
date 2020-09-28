@@ -3,6 +3,8 @@ package com.example.moviesapp.di
 import com.example.moviesapp.data.api.MovieApiService
 import com.example.moviesapp.domain.NowPlayingMoviesUseCase
 import com.example.moviesapp.domain.NowPlayingMoviesUseCaseImpl
+import com.example.moviesapp.domain.SearchMovieUseCase
+import com.example.moviesapp.domain.SearchMovieUseCaseImpl
 import dagger.Module
 import dagger.Provides
 
@@ -12,4 +14,8 @@ class UseCaseModule {
     @Provides
     fun provideNowPlayingUseCase(movieApiService: MovieApiService): NowPlayingMoviesUseCase =
         NowPlayingMoviesUseCaseImpl(movieApiService)
+
+    @Provides
+    fun provideSearchMoviesUseCase(movieApiService: MovieApiService): SearchMovieUseCase =
+        SearchMovieUseCaseImpl(movieApiService)
 }

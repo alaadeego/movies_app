@@ -53,7 +53,7 @@ class MoviesFragment : Fragment() {
         edtSearch.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 // Your piece of code on keyboard search click
-                Toast.makeText(requireContext(), "${v.text}", Toast.LENGTH_LONG).show()
+                viewModel.search(v.text.toString())
                 true
             } else false
         }

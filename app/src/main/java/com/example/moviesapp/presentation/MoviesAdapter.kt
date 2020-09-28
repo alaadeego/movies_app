@@ -16,6 +16,7 @@ class MoviesAdapter() :
     private val movies: MutableList<Movie> = mutableListOf()
 
     fun update(movies: List<Movie>) {
+        this.movies.clear()
         this.movies.addAll(movies)
     }
 
@@ -26,7 +27,7 @@ class MoviesAdapter() :
             itemView.tvVoteAverage.text = "${movie.vote_average}"
             itemView.tvVoteCounts.text = "${movie.vote_count}"
             Glide.with(itemView)
-                .load(MOVIE_IMAGE_BASE_PATH+movie.poster_path)
+                .load(MOVIE_IMAGE_BASE_PATH + movie.poster_path)
                 .into(itemView.imgMoviePoster)
         }
 
