@@ -11,7 +11,7 @@ class NowPlayingMovieDataSourceFactory(
     private val coroutineScope: CoroutineScope
 ) : DataSource.Factory<Int, Movie>() {
 
-    private val nowPlayingMovieLiveData = MutableLiveData<NowPlayingMovieDataSource>()
+    val nowPlayingMovieLiveData = MutableLiveData<NowPlayingMovieDataSource>()
 
     override fun create(): DataSource<Int, Movie> {
         val nowPlayingMovieDataSource = NowPlayingMovieDataSource(apiService, coroutineScope)

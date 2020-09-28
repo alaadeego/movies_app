@@ -1,10 +1,12 @@
 package com.example.moviesapp.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.example.moviesapp.data.api.MovieApiService
 import com.example.moviesapp.data.model.Movie
+import com.example.moviesapp.data.model.NetworkState
 import kotlinx.coroutines.CoroutineScope
 
 private const val PAGE_SIZE = 20
@@ -26,5 +28,12 @@ class NowPlayingMoviePagedListRepository(
         nowPlayedMoviePagedList =
             LivePagedListBuilder(nowPlayingMovieDataSourceFactory, config).build()
         return nowPlayedMoviePagedList
+    }
+
+    fun getNetworkState(): LiveData<NetworkState> {
+        return Transformations.switchMap<NowPlayingMovieDataSource, NetworkState>(
+            nowPlayingMovieDataSourceFactory.nowPlayingMovieLiveData,
+            NowPlayingMovieDataSource::networkState
+        )
     }
 }

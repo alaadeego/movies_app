@@ -5,5 +5,5 @@ import androidx.paging.PagedList
 import com.example.moviesapp.data.model.Movie
 
 interface NowPlayingMoviesUseCase {
-    suspend fun getMovies(): LiveData<PagedList<Movie>>
+    fun getMovies(): LiveData<PagedList<Movie>>
 }
