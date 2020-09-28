@@ -10,7 +10,7 @@ import com.example.moviesapp.data.model.Movie
 import com.example.moviesapp.di.MOVIE_IMAGE_BASE_PATH
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MoviesAdapter() :
+class MoviesAdapter(private val movieItemClickListener: MovieItemClickListener) :
     RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     private val movies: MutableList<Movie> = mutableListOf()
@@ -22,13 +22,16 @@ class MoviesAdapter() :
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(movie: Movie) {
+        fun bind(movie: Movie, movieItemClickListener: MovieItemClickListener) {
             itemView.tvMovieTitle.text = movie.title
             itemView.tvVoteAverage.text = "${movie.vote_average}"
             itemView.tvVoteCounts.text = "${movie.vote_count}"
             Glide.with(itemView)
                 .load(MOVIE_IMAGE_BASE_PATH + movie.poster_path)
                 .into(itemView.imgMoviePoster)
+            itemView.setOnClickListener {
+                movieItemClickListener.onMovieClicked(movie)
+            }
         }
 
     }
@@ -41,6 +44,6 @@ class MoviesAdapter() :
     override fun getItemCount() = movies.size
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(movie = movies[position])
+        holder.bind(movie = movies[position], movieItemClickListener = movieItemClickListener)
     }
 }

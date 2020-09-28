@@ -18,5 +18,10 @@
         android:id="@+id/movieDetailsFragment"
         tools:layout="@layout/fragment_movie_details"
         android:name="com.example.moviesapp.presentation.MovieDetailsFragment"
-        android:label="MovieDetailsFragment" />
+        android:label="MovieDetailsFragment" >
+
+        <argument
+            android:name="movieArg"
+            app:argType="com.example.moviesapp.data.model.Movie" />
+    </fragment>
 </navigation>

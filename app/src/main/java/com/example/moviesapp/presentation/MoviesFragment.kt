@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviesapp.R
+import com.example.moviesapp.data.model.Movie
 import com.example.moviesapp.utils.VerticalSpaceItemDecoration
 import com.example.moviesapp.utils.ViewModelFactory
 import com.example.moviesapp.utils.afterTextChanged
@@ -20,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_movies.*
 import javax.inject.Inject
 
 
-class MoviesFragment : Fragment() {
+class MoviesFragment : Fragment(), MovieItemClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<MoviesFragmentViewModel>
@@ -29,7 +32,7 @@ class MoviesFragment : Fragment() {
         ViewModelProviders.of(this, viewModelFactory).get(MoviesFragmentViewModel::class.java)
     }
 
-    private val moviesAdapter = MoviesAdapter()
+    private val moviesAdapter = MoviesAdapter(this)
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -85,5 +88,10 @@ class MoviesFragment : Fragment() {
                 moviesAdapter.notifyDataSetChanged()
             }
         })
+    }
+
+    override fun onMovieClicked(movie: Movie) {
+        val bundle = bundleOf("movieArg" to movie)
+        findNavController().navigate(R.id.action_moviesFragment_to_movieDetailsFragment, bundle)
     }
 }
