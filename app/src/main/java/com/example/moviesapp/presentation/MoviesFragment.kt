@@ -22,15 +22,14 @@ import javax.inject.Inject
 
 class MoviesFragment : Fragment() {
 
-
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<MoviesFragmentViewModel>
-
-    private val moviesAdapter = MoviesAdapter()
 
     private val viewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(MoviesFragmentViewModel::class.java)
     }
+
+    private val moviesAdapter = MoviesAdapter()
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
