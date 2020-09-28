@@ -1,12 +1,13 @@
 package com.example.moviesapp.domain
 
-import com.example.moviesapp.data.api.MovieApiService
+import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import com.example.moviesapp.data.model.Movie
-import com.example.moviesapp.di.API_KEY
+import com.example.moviesapp.data.repository.NowPlayingMoviePagedListRepository
 
-class NowPlayingMoviesUseCaseImpl constructor(private val movieApiService: MovieApiService) :
+class NowPlayingMoviesUseCaseImpl constructor(private val repository: NowPlayingMoviePagedListRepository) :
     NowPlayingMoviesUseCase {
-    override suspend fun getMovies(page: Int): List<Movie> {
-        return movieApiService.getNowPlaying(apiKey = API_KEY, page = page).results
+    override suspend fun getMovies(): LiveData<PagedList<Movie>> {
+        return repository.fetchNowPlayedMoviePagedList()
     }
 }
