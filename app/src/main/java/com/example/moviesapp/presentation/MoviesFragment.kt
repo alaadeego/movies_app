@@ -32,7 +32,7 @@ class MoviesFragment : Fragment(), MovieItemClickListener {
         ViewModelProviders.of(this, viewModelFactory).get(MoviesFragmentViewModel::class.java)
     }
 
-    private val moviesAdapter = MoviesAdapter(this)
+    private val moviesAdapter = MoviePagedListAdapter()
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -82,11 +82,13 @@ class MoviesFragment : Fragment(), MovieItemClickListener {
     }
 
     private fun observeNowPlayingMovies() {
-        viewModel.getMovieLiveData().observe(requireActivity(), Observer {
-            if (it.isNotEmpty()) {
-                moviesAdapter.update(it)
-                moviesAdapter.notifyDataSetChanged()
-            }
+        viewModel.getNowPlayingMovies().observe(requireActivity(), Observer {
+            moviesAdapter.submitList(it)
+        })
+
+        viewModel.getNetworkState().observe(requireActivity(), Observer
+        {
+            moviesAdapter.setNetworkState(it)
         })
     }
 

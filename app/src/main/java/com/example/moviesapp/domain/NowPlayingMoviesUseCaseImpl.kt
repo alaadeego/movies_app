@@ -9,15 +9,16 @@ import com.example.moviesapp.data.repository.NowPlayingMoviePagedListRepository
 class NowPlayingMoviesUseCaseImpl constructor(private val repository: NowPlayingMoviePagedListRepository) :
     NowPlayingMoviesUseCase {
 
-    val networkState: LiveData<NetworkState> by lazy {
-        repository.getNetworkState()
-    }
 
-    override  fun getMovies(): LiveData<PagedList<Movie>> {
+    override fun getMovies(): LiveData<PagedList<Movie>> {
         return repository.fetchNowPlayedMoviePagedList()
     }
 
-    fun isListEmpty(): Boolean {
+    override fun getNetworkState(): LiveData<NetworkState> {
+        return repository.getNetworkState()
+    }
+
+    override fun isListEmpty(): Boolean {
         return getMovies().value?.isEmpty() ?: true
     }
 }

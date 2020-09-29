@@ -48,7 +48,7 @@ class NowPlayingMovieDataSource(
             }
             results.onSuccess {
                 if (it.total_pages >= params.key) {
-                    callback.onResult(it.results, params.key + 1)
+                    callback.onResult(it.results, params.key+1)
                     networkState.postValue(NetworkState.LOADED)
 
                 } else {

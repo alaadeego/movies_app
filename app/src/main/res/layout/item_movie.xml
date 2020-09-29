@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    app:cardCornerRadius="8dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -31,13 +31,16 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:text="The Lord of the rings"
+            android:ellipsize="end"
+            android:ems="3"
+            android:maxLines="1"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgMoviePoster"
-            app:layout_constraintTop_toTopOf="@+id/imgMoviePoster" />
+            app:layout_constraintTop_toTopOf="@+id/imgMoviePoster"
+            tools:text="The Lord of the rings" />
 
         <ImageView
             android:id="@+id/imageView2"

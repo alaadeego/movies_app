@@ -1,8 +1,11 @@
 package com.example.moviesapp.presentation
 
+import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagedList
 import com.example.moviesapp.data.model.Movie
 import com.example.moviesapp.domain.NowPlayingMoviesUseCase
 import com.example.moviesapp.domain.SearchMovieUseCase
@@ -11,11 +14,10 @@ import javax.inject.Inject
 
 class MoviesFragmentViewModel @Inject constructor(
     private val nowPlayingMoviesUseCase: NowPlayingMoviesUseCase,
-    private val searchMovieUseCase: SearchMovieUseCase
-) :
+    private val searchMovieUseCase: SearchMovieUseCase) :
     ViewModel() {
 
-    private val moviesLiveData = MutableLiveData<List<Movie>>()
+    private val moviesLiveData = MutableLiveData<PagedList<Movie>>()
 
     fun getMovieLiveData() = moviesLiveData
 
@@ -23,19 +25,13 @@ class MoviesFragmentViewModel @Inject constructor(
         getNowPlayingMovies()
     }
 
-     fun getNowPlayingMovies() {
-        viewModelScope.launch {
-            val results = kotlin.runCatching {
-                nowPlayingMoviesUseCase.getMovies(page = 1)
-            }
-            results.onSuccess {
-                moviesLiveData.postValue(it)
-            }
-            results.onFailure {
-
-            }
-        }
+    fun getNowPlayingMovies() :LiveData<PagedList<Movie>>{
+        return nowPlayingMoviesUseCase.getMovies()
     }
+
+    fun isListEmpty() = nowPlayingMoviesUseCase.isListEmpty()
+
+    fun getNetworkState() = nowPlayingMoviesUseCase.getNetworkState()
 
 
     fun search(movieName: String) {
@@ -45,7 +41,7 @@ class MoviesFragmentViewModel @Inject constructor(
                     searchMovieUseCase.search(page = 1, query = movieName)
                 }
                 results.onSuccess {
-                    moviesLiveData.postValue(it)
+                    //  moviesLiveData.postValue(it)
                 }
                 results.onFailure {
 

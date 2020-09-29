@@ -6,7 +6,7 @@ enum class Status {
     FAILED
 }
 
-class NetworkState(val state: Status, message: String) {
+class NetworkState(val state: Status, val message: String) {
 
     companion object {
         val LOADED: NetworkState
