@@ -1,6 +1,7 @@
 package com.example.moviesapp.domain
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.example.moviesapp.data.model.Movie
 import com.example.moviesapp.data.model.NetworkState

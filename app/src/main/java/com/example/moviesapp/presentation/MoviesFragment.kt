@@ -66,13 +66,6 @@ class MoviesFragment : Fragment(), MovieItemClickListener {
                 true
             } else false
         }
-
-
-        edtSearch.afterTextChanged {
-            if (it.isEmpty())
-                viewModel.getNowPlayingMovies()
-        }
-
     }
 
     private fun initMoviesRecyclerView() {
@@ -85,7 +78,7 @@ class MoviesFragment : Fragment(), MovieItemClickListener {
     }
 
     private fun observeNowPlayingMovies() {
-        viewModel.getNowPlayingMovies().observe(requireActivity(), Observer {
+        viewModel.nowPlayingMoviePagedList.observe(requireActivity(), Observer {
             moviesAdapter.submitList(it)
         })
 

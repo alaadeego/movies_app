@@ -1,12 +1,11 @@
 package com.example.moviesapp.presentation
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
 import com.example.moviesapp.data.model.Movie
+import com.example.moviesapp.data.model.NetworkState
 import com.example.moviesapp.domain.NowPlayingMoviesUseCase
 import com.example.moviesapp.domain.SearchMovieUseCase
 import javax.inject.Inject
@@ -17,11 +16,10 @@ class MoviesFragmentViewModel @Inject constructor(
 ) :
     ViewModel() {
 
+    val nowPlayingMoviePagedList: LiveData<PagedList<Movie>> by lazy {
+        getNowPlayingMovies()
+    }
 
-
-//    init {
-//        getNowPlayingMovies()
-//    }
 
     fun getNowPlayingMovies(): LiveData<PagedList<Movie>> {
         return nowPlayingMoviesUseCase.getMovies()
@@ -29,7 +27,7 @@ class MoviesFragmentViewModel @Inject constructor(
 
     fun isListEmpty() = nowPlayingMoviesUseCase.isListEmpty()
 
-    fun getNetworkState() = nowPlayingMoviesUseCase.getNetworkState()
+    fun getNetworkState(): LiveData<NetworkState> = nowPlayingMoviesUseCase.getNetworkState()
 
 
     fun search(movieName: String): LiveData<PagedList<Movie>> {
@@ -39,3 +37,4 @@ class MoviesFragmentViewModel @Inject constructor(
             getNowPlayingMovies()
     }
 }
+

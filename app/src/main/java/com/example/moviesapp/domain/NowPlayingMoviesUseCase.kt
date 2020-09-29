@@ -8,6 +8,6 @@ import com.example.moviesapp.data.model.NetworkState
 
 interface NowPlayingMoviesUseCase {
     fun getMovies(): LiveData<PagedList<Movie>>
-    fun getNetworkState():LiveData<NetworkState>
-     fun isListEmpty(): Boolean
+    fun getNetworkState(): LiveData<NetworkState>
+    fun isListEmpty(): Boolean
 }
