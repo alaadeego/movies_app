@@ -1,16 +1,19 @@
 package com.example.moviesapp.presentation
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.moviesapp.R
 import com.example.moviesapp.data.model.Movie
 import com.example.moviesapp.di.MOVIE_IMAGE_BASE_PATH
+import kotlinx.android.synthetic.main.content_layout.*
 import kotlinx.android.synthetic.main.fragment_movie_details.*
-import kotlinx.android.synthetic.main.item_movie.*
+
 
 class MovieDetailsFragment : Fragment() {
 
@@ -30,12 +33,16 @@ class MovieDetailsFragment : Fragment() {
         }
     }
 
+    private fun setToolbar() {
+
+    }
+
     private fun bindUI(movie: Movie) {
-        toolbar.title=movie.title
+        toolbar.title = movie.title
         tvMovieDesc.text = movie.overview
         tvMovieReleaseDate.text = movie.release_date
-        tvMovieRate.text="${movie.vote_average}/10"
-        tvMovieVotingCounts.text="${movie.vote_count}"
+        tvMovieRate.text = "${movie.vote_average}/10"
+        tvMovieVotingCounts.text = "${movie.vote_count}"
 
         Glide.with(this)
             .load(MOVIE_IMAGE_BASE_PATH + movie.poster_path)
