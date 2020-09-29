@@ -15,7 +15,7 @@ import com.example.moviesapp.di.MOVIE_IMAGE_BASE_PATH
 import kotlinx.android.synthetic.main.item_movie.view.*
 import kotlinx.android.synthetic.main.item_state.view.*
 
-class MoviePagedListAdapter :
+class MoviePagedListAdapter(private val listener: MovieItemClickListener) :
     PagedListAdapter<Movie, RecyclerView.ViewHolder>(MovieDiffCallback()) {
 
     val MOVIE_VIEW_TYPE = 1
@@ -37,7 +37,10 @@ class MoviePagedListAdapter :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == MOVIE_VIEW_TYPE) {
-            (holder as MovieViewHolder).bind(movie = getItem(position))
+            (holder as MovieViewHolder).bind(
+                movie = getItem(position),
+                movieItemClickListener = listener
+            )
         } else {
             (holder as NetworkStateViewHolder).bind(networkState)
         }
@@ -78,7 +81,7 @@ class MoviePagedListAdapter :
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(movie: Movie?, movieItemClickListener: MovieItemClickListener? = null) {
+        fun bind(movie: Movie?, movieItemClickListener: MovieItemClickListener) {
             itemView.tvMovieTitle.text = movie?.title
             itemView.tvVoteAverage.text = "${movie?.vote_average}"
             itemView.tvVoteCounts.text = "${movie?.vote_count}"
@@ -86,7 +89,9 @@ class MoviePagedListAdapter :
                 .load(MOVIE_IMAGE_BASE_PATH + movie?.poster_path)
                 .into(itemView.imgMoviePoster)
             itemView.setOnClickListener {
-                // movieItemClickListener.onMovieClicked(movie?)
+                movie?.let {
+                    movieItemClickListener.onMovieClicked(it)
+                }
             }
         }
 

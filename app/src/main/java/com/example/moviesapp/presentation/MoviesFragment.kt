@@ -32,7 +32,7 @@ class MoviesFragment : Fragment(), MovieItemClickListener {
         ViewModelProviders.of(this, viewModelFactory).get(MoviesFragmentViewModel::class.java)
     }
 
-    private val moviesAdapter = MoviePagedListAdapter()
+    private val moviesAdapter = MoviePagedListAdapter(this)
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
