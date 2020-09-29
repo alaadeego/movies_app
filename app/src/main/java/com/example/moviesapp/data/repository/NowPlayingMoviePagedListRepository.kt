@@ -22,7 +22,7 @@ class NowPlayingMoviePagedListRepository(
         nowPlayingMovieDataSourceFactory =
             NowPlayingMovieDataSourceFactory(apiService, coroutineScope)
         val config = PagedList.Config.Builder()
-            .setEnablePlaceholders(false)
+            .setEnablePlaceholders(true)
             .setPageSize(PAGE_SIZE)
             .build()
         nowPlayedMoviePagedList =

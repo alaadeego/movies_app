@@ -45,4 +45,6 @@ class MovieDetailsFragment : Fragment() {
             .load(MOVIE_IMAGE_BASE_PATH + movie.backdrop_path)
             .into(imgMovieDetailsCover)
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.example.moviesapp.di
 
 import com.example.moviesapp.data.api.MovieApiService
 import com.example.moviesapp.data.repository.NowPlayingMoviePagedListRepository
+import com.example.moviesapp.data.repository.SearchMoviePagedListRepository
 import com.example.moviesapp.domain.NowPlayingMoviesUseCase
 import com.example.moviesapp.domain.NowPlayingMoviesUseCaseImpl
 import com.example.moviesapp.domain.SearchMovieUseCase
@@ -27,10 +28,17 @@ class UseCaseModule {
         NowPlayingMoviePagedListRepository(movieApiService, coroutineScope)
 
     @Provides
+    fun provideSearchMovieRepository(
+        movieApiService: MovieApiService,
+        coroutineScope: CoroutineScope
+    ) =
+        SearchMoviePagedListRepository(movieApiService, coroutineScope)
+
+    @Provides
     fun provideNowPlayingUseCase(repository: NowPlayingMoviePagedListRepository): NowPlayingMoviesUseCase =
         NowPlayingMoviesUseCaseImpl(repository)
 
     @Provides
-    fun provideSearchMoviesUseCase(movieApiService: MovieApiService): SearchMovieUseCase =
-        SearchMovieUseCaseImpl(movieApiService)
+    fun provideSearchMoviesUseCase(repository: SearchMoviePagedListRepository): SearchMovieUseCase =
+        SearchMovieUseCaseImpl(repository)
 }

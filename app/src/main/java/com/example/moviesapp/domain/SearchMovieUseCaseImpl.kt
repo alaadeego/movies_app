@@ -1,11 +1,15 @@
 package com.example.moviesapp.domain
 
-import com.example.moviesapp.data.api.MovieApiService
+import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import com.example.moviesapp.data.model.Movie
-import com.example.moviesapp.di.API_KEY
+import com.example.moviesapp.data.repository.SearchMoviePagedListRepository
 
-class SearchMovieUseCaseImpl(private val movieApiService: MovieApiService) : SearchMovieUseCase {
-    override suspend fun search(page: Int, query: String): List<Movie> {
-        return movieApiService.searchMovies(API_KEY, page, query).results
+class SearchMovieUseCaseImpl(private val repository: SearchMoviePagedListRepository) :
+    SearchMovieUseCase {
+
+
+    override fun search(query: String): LiveData<PagedList<Movie>> {
+        return repository.searchMoviePagedList(query)
     }
 }

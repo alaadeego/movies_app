@@ -60,6 +60,9 @@ class MoviesFragment : Fragment(), MovieItemClickListener {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 // Your piece of code on keyboard search click
                 viewModel.search(v.text.toString())
+                    .observe(requireActivity(), Observer {
+                        moviesAdapter.submitList(it)
+                    })
                 true
             } else false
         }
@@ -76,7 +79,7 @@ class MoviesFragment : Fragment(), MovieItemClickListener {
         rclMovies.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         rclMovies.adapter = moviesAdapter
-        rclMovies.addItemDecoration(VerticalSpaceItemDecoration(16))
+        rclMovies.addItemDecoration(VerticalSpaceItemDecoration(20))
         rclMovies.setHasFixedSize(true)
 
     }
@@ -90,6 +93,8 @@ class MoviesFragment : Fragment(), MovieItemClickListener {
         {
             moviesAdapter.setNetworkState(it)
         })
+
+
     }
 
     override fun onMovieClicked(movie: Movie) {

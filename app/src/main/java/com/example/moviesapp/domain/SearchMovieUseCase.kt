@@ -1,7 +1,9 @@
 package com.example.moviesapp.domain
 
+import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import com.example.moviesapp.data.model.Movie
 
 interface SearchMovieUseCase {
-    suspend fun search(page: Int = 1, query: String): List<Movie>
+     fun search(query: String): LiveData<PagedList<Movie>>
 }
