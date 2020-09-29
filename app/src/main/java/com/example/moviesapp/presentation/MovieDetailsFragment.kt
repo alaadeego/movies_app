@@ -1,11 +1,9 @@
 package com.example.moviesapp.presentation
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.moviesapp.R
@@ -33,10 +31,6 @@ class MovieDetailsFragment : Fragment() {
         }
     }
 
-    private fun setToolbar() {
-
-    }
-
     private fun bindUI(movie: Movie) {
         toolbar.title = movie.title
         tvMovieDesc.text = movie.overview
@@ -52,6 +46,4 @@ class MovieDetailsFragment : Fragment() {
             .load(MOVIE_IMAGE_BASE_PATH + movie.backdrop_path)
             .into(imgMovieDetailsCover)
     }
-
-
 }
